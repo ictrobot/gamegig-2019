@@ -25,7 +25,7 @@ function love.update(dt)
 end
  
 function love.draw()
-    if timer:timeLeft() and player.y>=0 and player.y<=const.height_px then
+    if timer:timeLeft() and player:onScreen() then
         love.graphics.setColor(0, 0.4, 0.4)
         worldOffset = (player.x - (const.width_tiles / 2)) * const.tile_size
 
@@ -53,8 +53,12 @@ function love.draw()
         -- timer & score
         timer:draw()
         score:draw()
+        
+    else if score.score >= score.target then
+        --win screen
+        love.graphics.print("win", const.width_px / 2, const.height_px / 2)
     else
-        --end screen
-        love.graphics.print("game over", const.width_px / 2, const.height_px / 2)
+        --lose screen
+        love.graphics.print("lose", const.width_px / 2, const.height_px / 2)
     end
 end
