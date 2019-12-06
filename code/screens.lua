@@ -99,9 +99,9 @@ function WinScreen:draw()
         love.graphics.draw(tile.image, i*const.tile_size, 11*const.tile_size, 0, const.tile_size / 32, const.tile_size / 32)
     end
     local disco = tiles['time_minus_10']
-    for i=0, const.height_tiles -1 do
-        love.graphics.draw(disco.image, 0, i*const.tile_size, 0, const.tile_size / 32, const.tile_size / 32)
-        love.graphics.draw(disco.image, 19*const.tile_size, i*const.tile_size, 0, const.tile_size / 32, const.tile_size / 32)
+    for i=1, const.height_tiles - 2 do
+        love.graphics.draw(disco.rawImage, 0, i*const.tile_size, 0, const.tile_size / 32, const.tile_size / 32)
+        love.graphics.draw(disco.rawImage, 19*const.tile_size, i*const.tile_size, 0, const.tile_size / 32, const.tile_size / 32)
     end
 end
 
