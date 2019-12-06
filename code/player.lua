@@ -24,26 +24,26 @@ function Player:maxTileX()
 end
 
 function Player:leftCollision()
-    lower = self.world:getTile(math.floor(self.x - self.speedX), math.floor(self.y)) ~= nil
-    upper = self.world:getTile(math.floor(self.x - self.speedX), math.ceil(self.y)) ~= nil
+    lower = self.world:getTile(math.floor(self.x - self.speedX), math.floor(self.y)):isSolid()
+    upper = self.world:getTile(math.floor(self.x - self.speedX), math.ceil(self.y)):isSolid()
     return lower or upper
 end
 
 function Player:rightCollision()
-    lower = self.world:getTile(math.floor(self.x + self.speedX +1), math.floor(self.y)) ~= nil
-    upper = self.world:getTile(math.floor(self.x + self.speedX +1), math.ceil(self.y)) ~= nil
+    lower = self.world:getTile(math.floor(self.x + self.speedX +1), math.floor(self.y)):isSolid()
+    upper = self.world:getTile(math.floor(self.x + self.speedX +1), math.ceil(self.y)):isSolid()
     return lower or upper
 end
 
 function Player:downCollision()
-    left = self.world:getTile(math.floor(self.x), math.floor(self.y - self.speedY)) ~= nil
-    right = self.world:getTile(math.ceil(self.x), math.floor(self.y - self.speedY)) ~= nil
+    left = self.world:getTile(math.floor(self.x), math.floor(self.y - self.speedY)):isSolid()
+    right = self.world:getTile(math.ceil(self.x), math.floor(self.y - self.speedY)):isSolid()
     return left or right
 end
 
 function Player:upCollision()
-    left = self.world:getTile(math.floor(self.x), math.floor(self.y + self.speedY +1)) ~= nil
-    right = self.world:getTile(math.ceil(self.x), math.floor(self.y + self.speedY +1)) ~= nil
+    left = self.world:getTile(math.floor(self.x), math.floor(self.y + self.speedY +1)):isSolid()
+    right = self.world:getTile(math.ceil(self.x), math.floor(self.y + self.speedY +1)):isSolid()
     return left or right
 end
 

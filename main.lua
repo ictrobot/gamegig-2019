@@ -39,11 +39,11 @@ function love.draw()
         end
 
         --tiles
+        love.graphics.setColor(1, 1, 1)
         for tileX=player:minTileX(), player:maxTileX() do
             for tileY=0, const.height_tiles - 1 do
-                if world:getTile(tileX, tileY) ~= nil then
-                    love.graphics.rectangle("fill", convertX(tileX), convertY(tileY), const.tile_size, const.tile_size)
-                end
+                local tile = world:getTile(tileX, tileY)
+                love.graphics.draw(tile.image, convertX(tileX), convertY(tileY), 0, const.tile_size / 32, const.tile_size / 32)
             end
         end
 
