@@ -9,10 +9,6 @@ function loadTile(name, imgName, solid, timeMod, scoreMod, speedMod)
     tile.scoreMod = scoreMod
     tile.speedMod = speedMod
 
-    function tile:isSolid()
-        return self.solid
-    end
-
     tiles[name] = tile
 end
 
