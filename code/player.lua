@@ -56,7 +56,11 @@ function Player:upCollision()
 end
 
 function Player:checkBlock(x, y)
-    
+    local tile = self.world:getTile(x, y)
+    timer:add(tile.timeMod)
+    score:add(tile.scoreMod)
+    self.speedX = self.speedX*tile.speedMod
+    self.world:setTile(nil)
 end
 
 function Player:checkSurroundingBlocks()
