@@ -1,16 +1,40 @@
--- Load some default values for our rectangle.
+local World = require 'code/world'
+local Player = require 'code/player'
+
 function love.load()
-    x, y, w, h = 20, 20, 60, 20
+    const = {}
+    const.tile_size = 64
+    const.width_tiles = 20
+    const.height_tiles = 12
+    const.width_px = const.width_tiles * const.tile_size
+    const.height_px = const.height_tiles * const.tile_size
+
+    love.window.setMode(const.width_px, const.height_px)
+
+    game = {}
+    game.time_left = 60
+    game.score = 0
+
+    world = World:new(const)
+    player = Player:new(world, const)
 end
- 
--- Increase the size of the rectangle every frame.
+
 function love.update(dt)
-    w = w + 1
-    h = h + 1
+    game.time_left = game.time_left - dt
+
+    player:update()
 end
  
--- Draw a coloured rectangle.
 function love.draw()
     love.graphics.setColor(0, 0.4, 0.4)
-    love.graphics.rectangle("fill", x, y, w, h)
+    for tileX=player:drawMinTileX(), player:drawMaxTileX() do
+        for tileY=0, const.height_tiles do
+            if world:getTile(tileX, tileY) ~= nil then
+                love.graphics.rectangle("fill",
+                    tileX * const.tile_size,
+                    const.height_px - ((tileY + 1) * const.tile_size),
+                    const.tile_size, const.tile_size)
+            end
+        end
+    end
 end
