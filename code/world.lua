@@ -10,10 +10,9 @@ function World:initialize(const)
 end
 
 function World:setTile(x, y, tile)
-    if y < 0 or y >= self.height then
-        error("Invalid set tile position")
+    if y>= 0 and y < self.height then
+        self.world[x * self.height + y] = tile
     end
-    self.world[x * self.height + y] = tile
 end
 
 function World:getTile(x, y)
