@@ -8,6 +8,8 @@ function love.load()
     const.height_tiles = 12
     const.width_px = const.width_tiles * const.tile_size
     const.height_px = const.height_tiles * const.tile_size
+    
+    love.window.setMode(const.width_px, const.height_px)
 
     game = {}
     game.time_left = 60
