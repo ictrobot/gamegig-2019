@@ -5,7 +5,7 @@ Score = class('Score')
 
 function Score:initialize(const)
     self.score = 0
-    self.target = 100
+    self.target = 20
     self.const = const
 end
 
