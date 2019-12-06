@@ -16,4 +16,18 @@ loadTile("background", "bookshelves", false, 0, 0, 1)
 loadTile("platform", "platform", true,  0, 0, 1)
 loadTile("edge", "edge", false, 0, 0, 1)
 
+-- time penalties
+loadTile("time_minus_5", "phone", false, -5, 0, 0)
+loadTile("time_minus_10", "disco_ball_greyscale", false, -10, 0, 0)
+
+-- time bonuses
+loadTile("time_plus_15", "email", false, 15, 0, 0)
+
+-- score increase
+loadTile("score_plus_2", "book", false, 0, 2, 0)
+loadTile("score_plus_3", "computer", false, 0, 3, 0)
+
+-- speed bonus
+loadTile("speed_plus_1.25", "coffee", false, 0, 0, 1.25)
+
 return tiles
