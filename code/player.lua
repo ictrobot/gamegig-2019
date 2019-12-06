@@ -13,6 +13,9 @@ function Player:initialize(world, const)
 
     self.world = world
     self.const = const
+
+    self.imageUp = love.graphics.newImage("assets/character_up.png")
+    self.imageDown = love.graphics.newImage("assets/character_down.png")
 end
 
 function Player:minTileX()
@@ -128,6 +131,14 @@ end
 
 function Player:onScreen()
     return player.y>=0 and player.y<=const.height_tiles 
+end
+
+function Player:getImage()
+    if self.gravity_flipped then
+        return self.imageDown
+    else
+        return self.imageUp
+    end
 end
 
 return Player

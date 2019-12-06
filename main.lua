@@ -50,8 +50,7 @@ function love.draw()
         end
 
         --player
-        love.graphics.setColor(1, 1, 1)
-        love.graphics.rectangle("fill", convertX(player.x), convertY(player.y), const.tile_size, const.tile_size)
+        love.graphics.draw(player:getImage(), convertX(player.x), convertY(player.y), 0, const.tile_size / 32, const.tile_size / 32)
 
         -- timer & score
         timer:draw()
