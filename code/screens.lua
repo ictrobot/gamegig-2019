@@ -65,9 +65,13 @@ function LossScreen:update(dt, controller)
 end
 
 function LossScreen:draw()
-    love.graphics.print("GAME OVER", math.floor(0.37 * const.width_px), math.floor(const.height_px / 4))
+    love.graphics.print("DEADLINE MISSED", math.floor(0.3 * const.width_px), math.floor(const.height_px / 4))
     love.graphics.print("press space to restart", math.floor(0.2 * const.width_px), math.floor(const.height_px / 2))
-    tiles = tile['background']
+    local tile = tiles['background']
+    for i=0, const.width_tiles -1 do
+        love.graphics.draw(tile.image, i*const.tile_size, 0, 0, const.tile_size / 32, const.tile_size / 32)
+        love.graphics.draw(tile.image, i*const.tile_size, 11*const.tile_size, 0, const.tile_size / 32, const.tile_size / 32)
+    end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -85,8 +89,18 @@ function WinScreen:update(dt, controller)
 end
 
 function WinScreen:draw()
-    love.graphics.print("WIN", math.floor(0.47 * const.width_px), math.floor(const.height_px / 4))
+    love.graphics.print("WORK COMPLETED", math.floor(0.3 * const.width_px), math.floor(const.height_px / 4))
     love.graphics.print("press space to restart", math.floor(0.2 * const.width_px), math.floor(const.height_px / 2))
+    local tile = tiles['background']
+    for i=0, const.width_tiles -1 do
+        love.graphics.draw(tile.image, i*const.tile_size, 0, 0, const.tile_size / 32, const.tile_size / 32)
+        love.graphics.draw(tile.image, i*const.tile_size, 11*const.tile_size, 0, const.tile_size / 32, const.tile_size / 32)
+    end
+    local disco = tiles['time_minus_10']
+    for i=0, const.height_tiles -1 do
+        love.graphics.draw(disco.image, 0, i*const.tile_size, 0, const.tile_size / 32, const.tile_size / 32)
+        love.graphics.draw(disco.image, 19*const.tile_size, i*const.tile_size, 0, const.tile_size / 32, const.tile_size / 32)
+    end
 end
 
 ---------------------------------------------------------------------------------------------------
