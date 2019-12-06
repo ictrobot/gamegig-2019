@@ -40,7 +40,9 @@ function LossScreen:update(dt, controller)
 end
 
 function LossScreen:draw()
-    love.graphics.print("lose\npress space to restart", 0, 0)
+    love.graphics.print("GAME OVER", math.floor(0.37 * const.width_px), math.floor(const.height_px / 4))
+    love.graphics.print("press space to restart", math.floor(0.2 * const.width_px), math.floor(const.height_px / 2))
+    tiles = tile['background']
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -58,7 +60,8 @@ function WinScreen:update(dt, controller)
 end
 
 function WinScreen:draw()
-    love.graphics.print("win\npress space to restart", 0, 0)
+    love.graphics.print("WIN", math.floor(0.47 * const.width_px), math.floor(const.height_px / 4))
+    love.graphics.print("press space to restart", math.floor(0.2 * const.width_px), math.floor(const.height_px / 2))
 end
 
 ---------------------------------------------------------------------------------------------------
