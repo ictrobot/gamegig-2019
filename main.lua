@@ -26,25 +26,35 @@ function love.update(dt)
 end
  
 function love.draw()
-    love.graphics.setColor(0, 0.4, 0.4)
-    worldOffset = (player.x - (const.width_tiles / 2)) * const.tile_size
+    if game.time_left >= 0 then
+        love.graphics.setColor(0, 0.4, 0.4)
+        worldOffset = (player.x - (const.width_tiles / 2)) * const.tile_size
 
-    function convertX(tileX)
-        return (tileX * const.tile_size) - worldOffset
-    end
-    
-    function convertY(tileY)
-        return const.height_px - ((tileY + 1) * const.tile_size)
-    end
+        function convertX(tileX)
+            return (tileX * const.tile_size) - worldOffset
+        end
+        
+        function convertY(tileY)
+            return const.height_px - ((tileY + 1) * const.tile_size)
+        end
 
-    for tileX=player:minTileX(), player:maxTileX() do
-        for tileY=0, const.height_tiles - 1 do
-            if world:getTile(tileX, tileY) ~= nil then
-                love.graphics.rectangle("fill", convertX(tileX), convertY(tileY), const.tile_size, const.tile_size)
+        --tiles
+        for tileX=player:minTileX(), player:maxTileX() do
+            for tileY=0, const.height_tiles - 1 do
+                if world:getTile(tileX, tileY) ~= nil then
+                    love.graphics.rectangle("fill", convertX(tileX), convertY(tileY), const.tile_size, const.tile_size)
+                end
             end
         end
-    end
 
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.rectangle("fill", convertX(player.x), convertY(player.y), const.tile_size, const.tile_size)
+        --player
+        love.graphics.setColor(1, 1, 1)
+        love.graphics.rectangle("fill", convertX(player.x), convertY(player.y), const.tile_size, const.tile_size)
+
+        --timer
+        love.graphics.print(game.time_left - (game.time_left % 0.1), 0, 0)
+    else
+        --end screen
+        love.graphics.print("game over", const.width_px / 2, const.height_px / 2)
+    end
 end
