@@ -1,5 +1,7 @@
 local World = require 'code/world'
 local Player = require 'code/player'
+local Timer = require 'code/timer'
+local Score = require 'code/score'
 
 function love.load()
     const = {}
@@ -11,22 +13,19 @@ function love.load()
 
     love.window.setMode(const.width_px, const.height_px)
 
-    game = {}
-    game.time_left = 60
-    game.score = 0
-
+    timer = Timer:new(const)
+    score = Score:new(const)
     world = World:new(const)
     player = Player:new(world, const)
 end
 
 function love.update(dt)
-    game.time_left = game.time_left - dt
-
+    timer:subtract(dt)
     player:update()
 end
  
 function love.draw()
-    if game.time_left >= 0 then
+    if timer:timeLeft() then
         love.graphics.setColor(0, 0.4, 0.4)
         worldOffset = (player.x - (const.width_tiles / 2)) * const.tile_size
 
@@ -51,8 +50,9 @@ function love.draw()
         love.graphics.setColor(1, 1, 1)
         love.graphics.rectangle("fill", convertX(player.x), convertY(player.y), const.tile_size, const.tile_size)
 
-        --timer
-        love.graphics.print(game.time_left - (game.time_left % 0.1), 0, 0)
+        -- timer & score
+        timer:draw()
+        score:draw()
     else
         --end screen
         love.graphics.print("game over", const.width_px / 2, const.height_px / 2)

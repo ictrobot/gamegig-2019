@@ -18,11 +18,11 @@ function Score:draw()
 end
 
 function Score:add(score_to_add)
-    self.score = math.min(self.target,self.score + score_to_add)
+    self.score = math.max(0, math.min(self.target,self.score + score_to_add))
 end
 
 function Score:subtract(score_to_subtract)
-    self.score = math.max(0,self.score - score_to_subtract)
+    self.score = math.max(0, math.min(self.score - score_to_subtract))
 end
 
 

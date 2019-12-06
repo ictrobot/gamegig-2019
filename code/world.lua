@@ -1,5 +1,5 @@
 local class = require 'code/lib/middleclass'
-local loadTiles = require 'code/tiles'
+local tiles = require 'code/tiles'
 
 World = class('World')
 
