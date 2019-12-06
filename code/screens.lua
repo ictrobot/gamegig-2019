@@ -2,6 +2,7 @@ local World = require 'code/world'
 local Player = require 'code/player'
 local Timer = require 'code/timer'
 local Score = require 'code/score'
+local tiles = require 'code/tiles'
 
 --https://fontlibrary.org/en/font/cmu-typewriter
 font = love.graphics.newFont("assets/cmuntb.ttf", 64)
@@ -22,7 +23,31 @@ function StartScreen:update(dt, controller)
 end
 
 function StartScreen:draw()
-    love.graphics.print("Hello", 0, 0)
+    love.graphics.print("Deadline Dash", 10, 10)
+
+    helpY = 90
+
+    function help(tilename, description, y)
+        love.graphics.draw(tiles[tilename].rawImage, 50, helpY, 0, 2, 2)
+        love.graphics.print(description, 200, helpY)
+        helpY = helpY + 75
+    end
+
+    helpY = helpY + 25
+    help("time_minus_5", "Lose 5 seconds")
+    help("time_minus_10", "Lose 10 seconds")
+
+    helpY = helpY + 25
+    help("time_plus_15", "Gain 15 seconds")
+
+    helpY = helpY + 25
+    help("score_plus_2", "Gain 2 score")
+    help("score_plus_3", "Gain 3 score")
+
+    helpY = helpY + 25
+    help("speed_plus_1.25", "Increases your speed!")
+
+    love.graphics.print("Press space to start", 10, const.height_px - 100)
 end
 
 ---------------------------------------------------------------------------------------------------
