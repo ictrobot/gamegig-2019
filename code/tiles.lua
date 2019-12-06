@@ -24,7 +24,7 @@ loadTile("time_minus_10", "disco_ball_greyscale", false, -10, 0, 0)
 loadTile("time_plus_15", "email", false, 15, 0, 0)
 
 -- score increase
-loadTile("score_plus_2", "book", false, 0, 2, 0)
+loadTile("score_plus_2", "open_book", false, 0, 2, 0)
 loadTile("score_plus_3", "computer", false, 0, 3, 0)
 
 -- speed bonus
