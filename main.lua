@@ -17,6 +17,9 @@ function love.load()
     score = Score:new(const)
     world = World:new(const)
     player = Player:new(world, const)
+
+    font = love.graphics.newFont("assets/cmuntb.ttf", 64)
+    love.graphics.setFont(font)
 end
 
 function love.update(dt)
@@ -26,7 +29,7 @@ end
  
 function love.draw()
     if timer:timeLeft() and player:onScreen() then
-        love.graphics.setColor(0, 0.4, 0.4)
+        --play screen
         worldOffset = (player.x - (const.width_tiles / 2)) * const.tile_size
 
         function convertX(tileX)
@@ -38,7 +41,6 @@ function love.draw()
         end
 
         --tiles
-        love.graphics.setColor(1, 1, 1)
         for tileX=player:minTileX(), player:maxTileX() do
             for tileY=0, const.height_tiles - 1 do
                 local tile = world:getTile(tileX, tileY)
@@ -53,12 +55,18 @@ function love.draw()
         -- timer & score
         timer:draw()
         score:draw()
-        
-    else if score.score >= score.target then
+
+    elseif score.score >= score.target then
         --win screen
-        love.graphics.print("win", const.width_px / 2, const.height_px / 2)
+        love.graphics.print("win\npress space to restart", 0, 0)
+        if love.keyboard.isDown('space') then
+            love.load()
+        end
     else
         --lose screen
-        love.graphics.print("lose", const.width_px / 2, const.height_px / 2)
+        love.graphics.print("lose\npress space to restart", 0, 0)
+        if love.keyboard.isDown('space') then
+            love.load()
+        end
     end
 end
