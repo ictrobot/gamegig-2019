@@ -31,10 +31,12 @@ end
 
 function World:generateColumn()
     --make 1 or 2 tiles per column
-    y = math.floor(const.height_tiles * math.random())
-    self:setTile(self.distanceGenerated, y, tiles["platform"])
-    y = math.floor(const.height_tiles * math.random())
-    self:setTile(self.distanceGenerated, y, tiles["platform"])
+    local y = math.random(0, const.height_tiles - 1)
+    local length = math.random(-3, 5)
+
+    for i=0, length do
+        self:setTile(self.distanceGenerated + i, y, tiles["platform"])
+    end
     self.distanceGenerated = self.distanceGenerated + 1
 end
 
