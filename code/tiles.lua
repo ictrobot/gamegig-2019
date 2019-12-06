@@ -1,33 +1,23 @@
-local class = require 'code/lib/middleclass'
-
-Tile = class('Tile')
 tiles = {}
 
-function Tile:initialize(const, name)
-    self.width = const.tile_size
-    self.height = const.tile_size
-    self.image = love.graphics.newImage("assets/tiles/" .. name .. ".png")
-    tiles[name] = self
+function loadTile(name, solid, timeMod, scoreMod, speedMod)
+    local tile = {}
+    tile.name = name
+    tile.image = love.graphics.newImage("assets/tiles/" .. name .. ".png")
+    tile.solid = solid
+    tile.timeMod = timeMod
+    tile.scoreMod = scoreMod
+    tile.speedMod = speedMod
+
+    function tile:isSolid()
+        return self.solid
+    end
+
+    tiles[name] = tile
 end
 
-function Tile:isSolid()
-    return false
-end
+loadTile("background", false, 0, 0, 1)
+loadTile("platform",   true,  0, 0, 1)
+loadTile("edge",       false, 0, 0, 1)
 
-SolidTile = class('SolidTile', Tile)
-
-function SolidTile:isSolid()
-    return true
-end
-
-function loadTiles(const)
-    tiles = {}
-
-    Tile:new(const, "background")
-    SolidTile:new(const, "platform")
-    Tile:new(const, "edge")
-
-    return tiles
-end
-
-return loadTiles
+return tiles

@@ -23,28 +23,51 @@ function Player:maxTileX()
     return math.ceil(self.x + (const.width_tiles / 2) + 1)
 end
 
+function Player:collision(x, y)
+    return self.world:getTile(x, y).solid
+end
+
 function Player:leftCollision()
-    lower = self.world:getTile(math.floor(self.x - self.speedX), math.floor(self.y)):isSolid()
-    upper = self.world:getTile(math.floor(self.x - self.speedX), math.ceil(self.y)):isSolid()
-    return lower or upper
+    local x = math.floor(self.x - self.speedX)
+    local y1 = math.floor(self.y)
+    local y2 = math.ceil(self.y)
+    return self:collision(x, y1) or self:collision(x, y2)
 end
 
 function Player:rightCollision()
-    lower = self.world:getTile(math.floor(self.x + self.speedX +1), math.floor(self.y)):isSolid()
-    upper = self.world:getTile(math.floor(self.x + self.speedX +1), math.ceil(self.y)):isSolid()
-    return lower or upper
+    local x = math.floor(self.x + self.speedX +1)
+    local y1 = math.floor(self.y)
+    local y2 = math.ceil(self.y)
+    return self:collision(x, y1) or self:collision(x, y2)
 end
 
 function Player:downCollision()
-    left = self.world:getTile(math.floor(self.x), math.floor(self.y - self.speedY)):isSolid()
-    right = self.world:getTile(math.ceil(self.x), math.floor(self.y - self.speedY)):isSolid()
-    return left or right
+    local x1 = math.floor(self.x)
+    local x2 = math.ceil(self.x)
+    local y = math.floor(self.y - self.speedY)
+    return self:collision(x1, y) or self:collision(x2, y)
 end
 
 function Player:upCollision()
-    left = self.world:getTile(math.floor(self.x), math.floor(self.y + self.speedY +1)):isSolid()
-    right = self.world:getTile(math.ceil(self.x), math.floor(self.y + self.speedY +1)):isSolid()
-    return left or right
+    local x1 = math.floor(self.x)
+    local x2 = math.ceil(self.x)
+    local y = math.floor(self.y + self.speedY +1)
+    return self:collision(x1, y) or self:collision(x2, y)
+end
+
+function Player:checkBlock(x, y)
+    
+end
+
+function Player:checkSurroundingBlocks()
+    local x1 = math.floor(self.x)
+    local x2 = math.ceil(self.x)
+    local y1 = math.floor(self.y)
+    local y2 = math.ceil(self.y)
+    self:checkBlock(x1, y1)
+    self:checkBlock(x1, y2)
+    self:checkBlock(x2, y1)
+    self:checkBlock(x2, y2)
 end
 
 function Player:moveX()
