@@ -60,6 +60,12 @@ end
 
 function Player:checkBlock(x, y)
     local tile = self.world:getTile(x, y)
+
+    if tile.audioSrc ~= nil then
+        tile.audioSrc:stop()
+        tile.audioSrc:play()
+    end
+
     timer:add(tile.timeMod)
     score:add(tile.scoreMod)
     self.speedX = self.speedX * tile.speedMod

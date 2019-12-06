@@ -22,12 +22,16 @@ function loadTile(name, imgName, solid, timeMod, scoreMod, speedMod, rarity, sou
     tile.scoreMod = scoreMod
     tile.speedMod = speedMod
     tile.rarity = rarity
+    
     tile.sound = sound
+    if tile.sound then
+        tile.audioSrc = love.audio.newSource("assets/sounds/" .. sound .. ".wav", "static")
+    end
 
     tiles[name] = tile
 end
 
-loadTile("background", "bookshelves", false, 0, 0, 1, 0, "background")
+loadTile("background", "bookshelves", false, 0, 0, 1, 0)
 loadTile("platform", "platform", true,  0, 0, 1, 0)
 loadTile("edge", "edge", false, 0, 0, 1, 0)
 
