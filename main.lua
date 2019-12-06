@@ -27,20 +27,24 @@ end
  
 function love.draw()
     love.graphics.setColor(0, 0.4, 0.4)
-    for tileX=player:minTileX(), player:maxTileX() do
-        for tileY=0, const.height_tiles do
+    worldOffset = (player.x - (const.width_tiles / 2)) * const.tile_size
+
+    function convertX(tileX)
+        return (tileX * const.tile_size) - worldOffset
+    end
+    
+    function convertY(tileY)
+        return const.height_px - ((tileY + 1) * const.tile_size)
+    end
+
+    for tileX=0, world.distanceGenerated do
+        for tileY=0, const.height_tiles - 1 do
             if world:getTile(tileX, tileY) ~= nil then
-                love.graphics.rectangle("fill",
-                    (tileX - (player.x % 1)) * const.tile_size,
-                    const.height_px - ((tileY + 1) * const.tile_size),
-                    const.tile_size, const.tile_size)
+                love.graphics.rectangle("fill", convertX(tileX), convertY(tileY), const.tile_size, const.tile_size)
             end
         end
     end
 
     love.graphics.setColor(1, 1, 1)
-    love.graphics.rectangle("fill",
-        (const.width_tiles / 2) * const.tile_size,
-        const.height_px - ((player.y + 1) * const.tile_size),
-        const.tile_size, const.tile_size)
+    love.graphics.rectangle("fill", convertX(player.x), convertY(player.y), const.tile_size, const.tile_size)
 end
