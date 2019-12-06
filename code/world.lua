@@ -1,11 +1,11 @@
-local class = require 'code/lib/world.lua'
+local class = require 'code/lib/middleclass'
 
 World = class('World')
 
-function World:initialize()
+function World:initialize(const)
     self.distanceGenerated = -1
     self.tiles = {}
-    self.height = 12
+    self.height = const.height_tiles
 end
 
 function World:setTile(x, y, tile)

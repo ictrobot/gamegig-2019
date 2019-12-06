@@ -1,46 +1,38 @@
+local World = require 'code/world'
+local Player = require 'code/player'
+
 function love.load()
-    screen = {}
-    screen.tile_size = 64
-    screen.width_tiles = 20
-    screen.height_tiles = 12
-    screen.width_px = screen.width_tiles * screen.tile_size
-    screen.height_px = screen.height_tiles * screen.tile_size
+    const = {}
+    const.tile_size = 64
+    const.width_tiles = 20
+    const.height_tiles = 12
+    const.width_px = const.width_tiles * const.tile_size
+    const.height_px = const.height_tiles * const.tile_size
 
     game = {}
-    game.dist = screen.width_px / 2
     game.time_left = 60
     game.score = 0
-    game.gravity_flipped = false
 
-    player = {}
-    player.x = screen.width_px / 2
-    player.y = screen.height_px / 2
-
-    tiles = {}
-    --add initial tile set
+    world = World:new(const)
+    player = Player:new(world, const)
 end
 
 function love.update(dt)
-    --flip gravity
-    --[[if love.keyboard.isDown('space') then
-        game.gravity_flipped = not game.gravity_flipped
-    end]]--
+    game.time_left = game.time_left - dt
 
-    --calc new player pos
-        --if pressed (left/right) and not touching tile to (left/right)
-            --move game.dist (right/left)
-        --if not directly on tile
-            --fall "down", change
-        
-
-
-    --generate new cols
-        --
-
-    --draw cols
+    player:update()
 end
  
 function love.draw()
     love.graphics.setColor(0, 0.4, 0.4)
-    love.graphics.rectangle("fill", x, y, w, h)
+    for tileX=player:drawMinTileX(), player:drawMaxTileX() do
+        for tileY=1, const.height_tiles do
+            if world:getTile(tileX, tileY) ~= nil then
+                love.graphics.rectangle("fill",
+                    tileX * const.tile_size,
+                    const.height_px - (tileY * const.tile_size),
+                    const.tile_size, const.tile_size)
+            end
+        end
+    end
 end
