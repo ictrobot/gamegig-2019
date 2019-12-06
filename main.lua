@@ -25,7 +25,7 @@ function love.update(dt)
 end
  
 function love.draw()
-    if timer:timeLeft() then
+    if timer:timeLeft() and player.y>=0 and player.y<=const.height_px then
         love.graphics.setColor(0, 0.4, 0.4)
         worldOffset = (player.x - (const.width_tiles / 2)) * const.tile_size
 
