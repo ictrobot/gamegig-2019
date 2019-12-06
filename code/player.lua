@@ -126,4 +126,8 @@ function Player:update()
     end 
 end
 
+function Player:onScreen()
+    return player.y>=0 and player.y<=const.height_tiles 
+end
+
 return Player
