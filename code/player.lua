@@ -7,7 +7,7 @@ function Player:initialize(world, const)
     self.x = const.width_tiles / 2
     self.y = const.height_tiles / 2
     self.gravity_flipped = false
-    self.gravity_acc = 0.001
+    self.gravity_acc = 0.003
     self.speedX = 0.05
     self.speedY = 0
 
@@ -60,24 +60,24 @@ function Player:moveX()
 end
 
 function Player:moveY()
-    if love.keyboard.isDown('space') then
-        if gravity_flipped and self:upCollision() then
-            gravity_flipped = false
-        elseif self:downCollision() then
-            gravity_flipped = true
-        end
-    end
-
-    if gravity_flipped then
+    if self.gravity_flipped then
         if self:upCollision() then
+            self.y = math.floor(self.y + self.speedY) --actually move to tile surface
             self.speedY = 0 --reset fall acceleration
+            if love.keyboard.isDown('space') then
+                self.gravity_flipped = false
+            end
         else
             self.y = self.y + self.speedY --fall
             self.speedY = self.speedY+self.gravity_acc --accelerate
         end
     else
         if self:downCollision() then
+            self.y = math.floor(self.y - self.speedY+1)
             self.speedY = 0
+            if love.keyboard.isDown('space') then
+                self.gravity_flipped = true
+            end
         else
             self.y = self.y - self.speedY
             self.speedY = self.speedY+self.gravity_acc
