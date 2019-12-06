@@ -29,14 +29,30 @@ function World:getTile(x, y)
     end
 end
 
-function World:generateColumn()
-    --make 1 or 2 tiles per column
+function World:generatePlatform()
     local y = math.random(0, const.height_tiles - 1)
     local length = math.random(-3, 5)
 
     for i=0, length do
         self:setTile(self.distanceGenerated + i, y, tiles["platform"])
     end
+end
+
+function World:generatePowerups()
+    for y=1, const.height_tiles - 2 do
+        if not self:getTile(self.distanceGenerated, y).solid and (self:getTile(self.distanceGenerated, y - 1).solid or self:getTile(self.distanceGenerated, y + 1)) then
+            for tileName, tile in pairs(tiles) do
+                if math.random() <= tile.rarity then
+                    self:setTile(self.distanceGenerated, y, tile)
+                end
+            end
+        end
+    end
+end
+
+function World:generateColumn()
+    self:generatePlatform()
+    self:generatePowerups()
     self.distanceGenerated = self.distanceGenerated + 1
 end
 
