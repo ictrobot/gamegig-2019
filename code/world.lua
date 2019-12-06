@@ -7,7 +7,6 @@ function World:initialize(const)
     self.distanceGenerated = 0
     self.world = {}
     self.height = const.height_tiles
-    self.tiles = loadTiles(const)
 end
 
 function World:setTile(x, y, tile)
@@ -19,12 +18,12 @@ end
 
 function World:getTile(x, y)
     if y < 0 or y >= self.height then
-        return self.tiles["edge"]
+        return tiles["edge"]
     end
-    
+
     local val = self.world[x * self.height + y]
     if val == nil then
-        return self.tiles["background"]
+        return tiles["background"]
     else
         return val
     end
