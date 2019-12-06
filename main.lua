@@ -53,8 +53,12 @@ function love.draw()
         -- timer & score
         timer:draw()
         score:draw()
+        
+    else if score.score >= score.target then
+        --win screen
+        love.graphics.print("win", const.width_px / 2, const.height_px / 2)
     else
-        --end screen
-        love.graphics.print("game over", const.width_px / 2, const.height_px / 2)
+        --lose screen
+        love.graphics.print("lose", const.width_px / 2, const.height_px / 2)
     end
 end
