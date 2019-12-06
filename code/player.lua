@@ -5,8 +5,10 @@ Player = class('Player')
 
 function Player:initialize(world, const)
     self.x = const.width_tiles / 2
-    self.y = 1
+    self.y = const.height_tiles / 2
     self.gravity = false
+    self.speed = 0.01
+    self.gravity = 0.005
 
     self.world = world
     self.const = const
@@ -26,15 +28,29 @@ function Player:update()
         game.gravity_flipped = not game.gravity_flipped
     end]]--
 
-    --calc new player pos
-        --if pressed (left/right) and not touching tile to (left/right)
-            --move game.dist (right/left)
-        --if not directly on tile
-            --fall "down", change
+    if love.keyboard.isDown('left') then
+        if self.world:getTile(math.floor(self.x - self.speed), math.floor(self.y)) == nil then
+            self.x = self.x - self.speed
+        end
+    elseif love.keyboard.isDown('right') then
+        if self.world:getTile(math.floor(self.x + self.speed +1), math.floor(self.y)) == nil then
+            self.x = self.x + self.speed
+        end
+    end
 
+    if gravity_flipped then
+        if self.world:getTile(math.floor(self.x), math.floor(self.y + self.gravity +1)) == nil then
+            self.y = self.y + self.gravity
+        end
+    else
+        if self.world:getTile(math.floor(self.x), math.floor(self.y - self.gravity)) == nil then
+            self.y = self.y - self.gravity
+        end
+    end
+    
     --generate new cols
     while self:drawMaxTileX() > world.distanceGenerated do
-        world:generateColumn()
+        self.world:generateColumn()
     end 
 end
 
