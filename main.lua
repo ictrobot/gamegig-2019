@@ -18,6 +18,7 @@ function love.load()
     world = World:new(const)
     player = Player:new(world, const)
 
+    --https://fontlibrary.org/en/font/cmu-typewriter
     font = love.graphics.newFont("assets/cmuntb.ttf", 64)
     love.graphics.setFont(font)
 end
