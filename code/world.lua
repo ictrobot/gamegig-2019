@@ -22,9 +22,7 @@ function World:getTile(x, y)
     return self.tiles[x * self.height + y]
 end
 
-function World:generateColumn() 
-    --[[self:setTile(self.distanceGenerated, 0, {})
-    self.distanceGenerated = self.distanceGenerated + 1]]--
+function World:generateColumn()
     --make 1 or 2 tiles per column
     y = math.floor(const.height_tiles * math.random())
     self:setTile(self.distanceGenerated, y, {})
