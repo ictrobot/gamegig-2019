@@ -1,7 +1,5 @@
-local World = require 'code/world'
-local Player = require 'code/player'
-local Timer = require 'code/timer'
-local Score = require 'code/score'
+local Controller = require 'code/controller'
+local MainScreen = require 'code/screens'
 
 function love.load()
     const = {}
@@ -13,52 +11,14 @@ function love.load()
 
     love.window.setMode(const.width_px, const.height_px)
 
-    timer = Timer:new(const)
-    score = Score:new(const)
-    world = World:new(const)
-    player = Player:new(world, const)
+    controller = Controller:new()
+    controller:setScreen(MainScreen)
 end
 
 function love.update(dt)
-    timer:subtract(dt)
-    player:update()
+    controller:update(dt)
 end
  
 function love.draw()
-    if timer:timeLeft() and player:onScreen() then
-        love.graphics.setColor(0, 0.4, 0.4)
-        worldOffset = (player.x - (const.width_tiles / 2)) * const.tile_size
-
-        function convertX(tileX)
-            return (tileX * const.tile_size) - worldOffset
-        end
-        
-        function convertY(tileY)
-            return const.height_px - ((tileY + 1) * const.tile_size)
-        end
-
-        --tiles
-        love.graphics.setColor(1, 1, 1)
-        for tileX=player:minTileX(), player:maxTileX() do
-            for tileY=0, const.height_tiles - 1 do
-                local tile = world:getTile(tileX, tileY)
-                love.graphics.draw(tile.image, convertX(tileX), convertY(tileY), 0, const.tile_size / 32, const.tile_size / 32)
-            end
-        end
-
-        --player
-        love.graphics.setColor(1, 1, 1)
-        love.graphics.rectangle("fill", convertX(player.x), convertY(player.y), const.tile_size, const.tile_size)
-
-        -- timer & score
-        timer:draw()
-        score:draw()
-        
-    else if score.score >= score.target then
-        --win screen
-        love.graphics.print("win", const.width_px / 2, const.height_px / 2)
-    else
-        --lose screen
-        love.graphics.print("lose", const.width_px / 2, const.height_px / 2)
-    end
+    controller:draw()
 end

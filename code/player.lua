@@ -13,6 +13,9 @@ function Player:initialize(world, const)
 
     self.world = world
     self.const = const
+
+    self.imageUp = love.graphics.newImage("assets/character_up.png")
+    self.imageDown = love.graphics.newImage("assets/character_down.png")
 end
 
 function Player:minTileX()
@@ -59,8 +62,8 @@ function Player:checkBlock(x, y)
     local tile = self.world:getTile(x, y)
     timer:add(tile.timeMod)
     score:add(tile.scoreMod)
-    self.speedX = self.speedX*tile.speedMod
-    self.world:setTile(nil)
+    self.speedX = self.speedX * tile.speedMod
+    self.world:setTile(x, y, nil)
 end
 
 function Player:checkSurroundingBlocks()
@@ -120,6 +123,8 @@ function Player:update()
     self:moveX()
     self:moveY()
 
+    self:checkSurroundingBlocks()
+
     --generate new cols
     while self:maxTileX() > self.world.distanceGenerated do
         self.world:generateColumn()
@@ -128,6 +133,14 @@ end
 
 function Player:onScreen()
     return player.y>=0 and player.y<=const.height_tiles 
+end
+
+function Player:getImage()
+    if self.gravity_flipped then
+        return self.imageDown
+    else
+        return self.imageUp
+    end
 end
 
 return Player
