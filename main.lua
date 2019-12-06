@@ -8,7 +8,7 @@ function love.load()
     const.height_tiles = 12
     const.width_px = const.width_tiles * const.tile_size
     const.height_px = const.height_tiles * const.tile_size
-    
+
     love.window.setMode(const.width_px, const.height_px)
 
     game = {}
@@ -28,11 +28,11 @@ end
 function love.draw()
     love.graphics.setColor(0, 0.4, 0.4)
     for tileX=player:drawMinTileX(), player:drawMaxTileX() do
-        for tileY=1, const.height_tiles do
+        for tileY=0, const.height_tiles do
             if world:getTile(tileX, tileY) ~= nil then
                 love.graphics.rectangle("fill",
                     tileX * const.tile_size,
-                    const.height_px - (tileY * const.tile_size),
+                    const.height_px - ((tileY + 1) * const.tile_size),
                     const.tile_size, const.tile_size)
             end
         end
