@@ -49,11 +49,15 @@ end
 
 function Player:moveX()
     if love.keyboard.isDown('left') then
-        if not self:leftCollision() then
+        if self:leftCollision() then
+            self.x = math.floor(self.x + self.speedX)
+        else
             self.x = self.x - self.speedX
         end
     elseif love.keyboard.isDown('right') then
-        if not self:rightCollision() then
+        if self:rightCollision() then
+            self.x = math.floor(self.x - self.speedX + 1)
+        else
             self.x = self.x + self.speedX
         end
     end
@@ -73,7 +77,7 @@ function Player:moveY()
         end
     else
         if self:downCollision() then
-            self.y = math.floor(self.y - self.speedY+1)
+            self.y = math.floor(self.y - self.speedY + 1)
             self.speedY = 0
             if love.keyboard.isDown('space') then
                 self.gravity_flipped = true
