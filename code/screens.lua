@@ -8,6 +8,8 @@ local tiles = require 'code/tiles'
 font = love.graphics.newFont("assets/cmuntb.ttf", 64)
 love.graphics.setFont(font)
 
+backgroundMusic = love.audio.newSource("assets/sounds/background.wav", "static")
+
 ---------------------------------------------------------------------------------------------------
 
 StartScreen = {}
@@ -112,15 +114,20 @@ function MainScreen:load()
     score = Score:new(const)
     world = World:new(const)
     player = Player:new(world, const)
+    
+    backgroundMusic:stop()
+    backgroundMusic:play()
 end
 
 function MainScreen:update(dt, controller)
     if score.score >= score.target then
+        backgroundMusic:stop()
         controller:setScreen(WinScreen)
     elseif timer:timeLeft() and player:onScreen() then
         timer:subtract(dt)
         player:update()
     else
+        backgroundMusic:stop()
         controller:setScreen(LossScreen)
     end
 end
