@@ -6,18 +6,19 @@ function World:initialize(const)
     self.distanceGenerated = 0
     self.tiles = {}
     self.height = const.height_tiles
-
-    --draw initial tiles
-    for x=1, const.width_tiles do
-        self:generateColumn()
-    end
 end
 
 function World:setTile(x, y, tile)
+    if y < 0 or y >= self.height then
+        error("Invalid set tile position")
+    end
     self.tiles[x * self.height + y] = tile
 end
 
 function World:getTile(x, y)
+    if y < 0 or y >= self.height then
+        return nil
+    end
     return self.tiles[x * self.height + y]
 end
 

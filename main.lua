@@ -37,7 +37,7 @@ function love.draw()
         return const.height_px - ((tileY + 1) * const.tile_size)
     end
 
-    for tileX=0, world.distanceGenerated do
+    for tileX=player:minTileX(), player:maxTileX() do
         for tileY=0, const.height_tiles - 1 do
             if world:getTile(tileX, tileY) ~= nil then
                 love.graphics.rectangle("fill", convertX(tileX), convertY(tileY), const.tile_size, const.tile_size)
