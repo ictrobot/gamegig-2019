@@ -6,9 +6,10 @@ Player = class('Player')
 function Player:initialize(world, const)
     self.x = const.width_tiles / 2
     self.y = const.height_tiles / 2
-    self.gravity = false
-    self.speed = 0.01
-    self.gravity = 0.02
+    self.gravity_flipped = false
+    self.gravity_acc = 0.0001
+    self.speedX = 0.1
+    self.speedY = 0
 
     self.world = world
     self.const = const
@@ -59,15 +60,32 @@ function Player:moveX()
 end
 
 function Player:moveY()
-    gravity_flipped = love.keyboard.isDown('space')
+    if love.keyboard.isDown('space') then
+        self:toggleGravity()
+    end
+
     if gravity_flipped then
-        if not self:upCollision() then
-            self.y = self.y + self.gravity
+        if self:upCollision() then
+            self.speedY = 0 --reset fall acc
+        else
+            self.y = self.y + self.speedY --fall
+            self.speedY = self.speedY+self.gravity_acc
         end
     else
-        if not self:downCollision() then
-            self.y = self.y - self.gravity
+        if self:downCollision() then
+            self.speedY = 0 --reset fall acc
+        else
+            self.y = self.y - self.speedY
+            self.speedY = self.speedY+self.gravity_acc
         end
+    end
+end
+
+function Player:toggleGravity()
+    if gravity_flipped and self:upCollision() then
+        gravity_flipped = false
+    elseif self:downCollision() then
+        gravity_flipped = true
     end
 end
 
