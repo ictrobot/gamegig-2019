@@ -3,9 +3,7 @@ local tiles = {}
 local canvas = love.graphics.newCanvas(32, 32)
 local background = love.graphics.newImage("assets/tiles/bookshelves.png")
 
-function loadImage(imgName)
-    local image = love.graphics.newImage("assets/tiles/" .. imgName .. ".png")
-
+function loadImage(image)
     love.graphics.setCanvas(canvas)
     love.graphics.draw(background)
     love.graphics.draw(image)
@@ -17,7 +15,8 @@ end
 function loadTile(name, imgName, solid, timeMod, scoreMod, speedMod, rarity, sound)
     local tile = {}
     tile.name = name
-    tile.image = loadImage(imgName)
+    tile.rawImage = love.graphics.newImage("assets/tiles/" .. imgName .. ".png")
+    tile.image = loadImage(tile.rawImage)
     tile.solid = solid
     tile.timeMod = timeMod
     tile.scoreMod = scoreMod
