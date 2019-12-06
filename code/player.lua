@@ -23,15 +23,27 @@ function Player:maxTileX()
 end
 
 function Player:leftCollision()
-    lower = (self.world:getTile(math.floor(self.x - self.speed), math.floor(self.y)) ~= nil)
-    upper = (self.world:getTile(math.floor(self.x - self.speed), math.ceil(self.y)) ~= nil)
+    lower = self.world:getTile(math.floor(self.x - self.speed), math.floor(self.y)) ~= nil
+    upper = self.world:getTile(math.floor(self.x - self.speed), math.ceil(self.y)) ~= nil
     return lower or upper
 end
 
 function Player:rightCollision()
-    lower = not self.world:getTile(math.floor(self.x + self.speed +1), math.floor(self.y))
-    upper = not self.world:getTile(math.floor(self.x + self.speed +1), math.ceil(self.y))
+    lower = self.world:getTile(math.floor(self.x + self.speed +1), math.floor(self.y)) ~= nil
+    upper = self.world:getTile(math.floor(self.x + self.speed +1), math.ceil(self.y)) ~= nil
     return lower or upper
+end
+
+function Player:downCollision()
+    left = self.world:getTile(math.floor(self.x), math.floor(self.y - self.gravity)) ~= nil
+    right = self.world:getTile(math.ceil(self.x), math.floor(self.y - self.gravity)) ~= nil
+    return left or right
+end
+
+function Player:upCollision()
+    left = self.world:getTile(math.floor(self.x), math.floor(self.y + self.gravity +1)) ~= nil
+    right = self.world:getTile(math.ceil(self.x), math.floor(self.y + self.gravity +1)) ~= nil
+    return left or right
 end
 
 function Player:moveX()
@@ -47,12 +59,13 @@ function Player:moveX()
 end
 
 function Player:moveY()
+    gravity_flipped = love.keyboard.isDown('space')
     if gravity_flipped then
-        if self.world:getTile(math.floor(self.x), math.floor(self.y + self.gravity +1)) == nil then
+        if not self:upCollision() then
             self.y = self.y + self.gravity
         end
     else
-        if self.world:getTile(math.floor(self.x), math.floor(self.y - self.gravity)) == nil then
+        if not self:downCollision() then
             self.y = self.y - self.gravity
         end
     end
