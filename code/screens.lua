@@ -5,6 +5,7 @@ local Score = require 'code/score'
 
 --https://fontlibrary.org/en/font/cmu-typewriter
 font = love.graphics.newFont("assets/cmuntb.ttf", 64)
+love.graphics.setFont(font)
 
 ---------------------------------------------------------------------------------------------------
 
@@ -69,8 +70,6 @@ function MainScreen:load()
     score = Score:new(const)
     world = World:new(const)
     player = Player:new(world, const)
-
-    love.graphics.setFont(font)
 end
 
 function MainScreen:update(dt, controller)
