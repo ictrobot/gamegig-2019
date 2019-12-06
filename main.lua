@@ -1,15 +1,45 @@
--- Load some default values for our rectangle.
 function love.load()
-    x, y, w, h = 20, 20, 60, 20
+    screen = {}
+    screen.tile_size = 64
+    screen.width_tiles = 20
+    screen.height_tiles = 12
+    screen.width_px = screen.width_tiles * screen.tile_size
+    screen.height_px = screen.height_tiles * screen.tile_size
+
+    game = {}
+    game.dist = screen.width_px / 2
+    game.time_left = 60
+    game.score = 0
+    game.gravity_flipped = false
+
+    player = {}
+    player.x = screen.width_px / 2
+    player.y = screen.height_px / 2
+
+    tiles = {}
+    --add initial tile set
 end
- 
--- Increase the size of the rectangle every frame.
+
 function love.update(dt)
-    w = w + 1
-    h = h + 1
+    --flip gravity
+    --[[if love.keyboard.isDown('space') then
+        game.gravity_flipped = not game.gravity_flipped
+    end]]--
+
+    --calc new player pos
+        --if pressed (left/right) and not touching tile to (left/right)
+            --move game.dist (right/left)
+        --if not directly on tile
+            --fall "down", change
+        
+
+
+    --generate new cols
+        --
+
+    --draw cols
 end
  
--- Draw a coloured rectangle.
 function love.draw()
     love.graphics.setColor(0, 0.4, 0.4)
     love.graphics.rectangle("fill", x, y, w, h)
