@@ -1,12 +1,10 @@
 local class = require 'code/lib/middleclass'
 
+local Score = class('Score')
 
-Score = class('Score')
-
-function Score:initialize(const)
+function Score:initialize()
     self.score = 0
     self.target = 20
-    self.const = const
 end
 
 function Score:draw()

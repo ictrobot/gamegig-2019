@@ -1,9 +1,8 @@
 local class = require 'code/lib/middleclass'
 
+local Player = class('Player')
 
-Player = class('Player')
-
-function Player:initialize(world, const)
+function Player:initialize(world)
     self.x = const.width_tiles / 2
     self.y = const.height_tiles / 2
     self.gravity_flipped = false
@@ -12,7 +11,6 @@ function Player:initialize(world, const)
     self.speedY = 0
 
     self.world = world
-    self.const = const
 
     self.imageUp = love.graphics.newImage("assets/character_up.png")
     self.imageDown = love.graphics.newImage("assets/character_down.png")
@@ -134,11 +132,11 @@ function Player:update()
     --generate new cols
     while self:maxTileX() > self.world.distanceGenerated do
         self.world:generateColumn()
-    end 
+    end
 end
 
 function Player:onScreen()
-    return player.y>=0 and player.y<=const.height_tiles 
+    return self.y>=0 and self.y<=const.height_tiles
 end
 
 function Player:getImage()

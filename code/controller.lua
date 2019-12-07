@@ -1,7 +1,6 @@
 local class = require 'code/lib/middleclass'
 
-
-Controller = class('Controller')
+local Controller = class('Controller')
 
 function Controller:initialize()
     self.screen = nil

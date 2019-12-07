@@ -1,9 +1,9 @@
 local class = require 'code/lib/middleclass'
 local tiles = require 'code/tiles'
 
-World = class('World')
+local World = class('World')
 
-function World:initialize(const)
+function World:initialize()
     self.distanceGenerated = 0
     self.world = {}
     self.height = const.height_tiles
@@ -39,7 +39,8 @@ end
 
 function World:generatePowerups()
     for y=1, const.height_tiles - 2 do
-        if not self:getTile(self.distanceGenerated, y).solid and (self:getTile(self.distanceGenerated, y - 1).solid or self:getTile(self.distanceGenerated, y + 1).solid) then
+        local touchingTile = self:getTile(self.distanceGenerated, y - 1).solid or self:getTile(self.distanceGenerated, y + 1).solid
+        if touchingTile and not self:getTile(self.distanceGenerated, y).solid then
             for tileName, tile in pairs(tiles) do
                 if math.random() <= tile.rarity then
                     self:setTile(self.distanceGenerated, y, tile)

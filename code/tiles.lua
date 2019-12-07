@@ -3,7 +3,7 @@ local tiles = {}
 local canvas = love.graphics.newCanvas(32, 32)
 local background = love.graphics.newImage("assets/tiles/bookshelves.png")
 
-function loadImage(image)
+local function loadImage(image)
     love.graphics.setCanvas(canvas)
     love.graphics.draw(background)
     love.graphics.draw(image)
@@ -12,7 +12,7 @@ function loadImage(image)
     return love.graphics.newImage(canvas:newImageData())
 end
 
-function loadTile(name, imgName, solid, timeMod, scoreMod, speedMod, rarity, sound)
+local function loadTile(name, imgName, solid, timeMod, scoreMod, speedMod, rarity, sound)
     local tile = {}
     tile.name = name
     tile.rawImage = love.graphics.newImage("assets/tiles/" .. imgName .. ".png")
@@ -22,7 +22,7 @@ function loadTile(name, imgName, solid, timeMod, scoreMod, speedMod, rarity, sou
     tile.scoreMod = scoreMod
     tile.speedMod = speedMod
     tile.rarity = rarity
-    
+
     tile.sound = sound
     if tile.sound then
         tile.audioSrc = love.audio.newSource("assets/sounds/" .. sound .. ".wav", "static")
