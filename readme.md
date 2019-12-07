@@ -5,7 +5,7 @@ Entry into [Game Gig 2019](https://www.facebook.com/events/computer-laboratory-u
 
 [Devpost page](https://devpost.com/software/deadline-dash-bipy3f) (with screenshots)
 
-[Submitted code revision](960a28451be84443942bbd09f6b10809534adedb) 
+[Submitted code revision](https://github.com/ictrobot/gamegig-2019/tree/submission) 
 
 [Credits](/credits.md)
 
